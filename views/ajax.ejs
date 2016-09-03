@@ -1,0 +1,36 @@
+<% for(var i =0; i< photos.length; i++){ %>
+                    <div class="grid-item">
+                        <div class="myCard">
+                            <div class="image">
+                                <div class="dimmer">
+                                    <div class="dimmerContent">
+                                    <% if(currentUser){ %>
+                                    <% if(photos[i].likes.indexOf(currentUser._id) >= 0){ %>
+                                        <i id="<%= photos[i]._id%>" class="heart link large icon orange"></i>
+                                    <% } else { %>
+                                    <i id="<%= photos[i]._id%>" class="heart link large icon"></i>
+                                    <% } %>
+                                    <% } %>
+                                        <a href="/bucket/<%= photos[i].link %>" class="ui basic inverted large orange button">Open Image</a>
+                                    </div>
+                                </div>
+                                <img src="../bucket/<%= photos[i].link %>">
+                            </div>
+                            <div class="content">
+                                <div class="name">
+                                    <%= photos[i].name %>
+                                </div>
+                                <span id="<%= photos[i]._id%>" class="likes"><%= photos[i].likes.length %></span>
+                                <br>
+                                <em><span style="color:white;margin-left:3px;">by</span> &nbsp; <a class="user" href="/user/<%= photos[i].user._id %>"> <%= photos[i].user.name %> </a></em>
+                                <div class="ui divider"></div>
+                                <div class="tag">
+                                    <a href="/search?search=&searchcategory=<%= photos[i].category %>" style="color:white !important;">
+                                        <i class="inverted filter icon"></i>
+                                        <%= photos[i].category %>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>

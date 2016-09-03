@@ -1,0 +1,31 @@
+{
+  "name": "photo-surf",
+  "version": "1.0.0",
+  "description": "a photo surfing app using nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qeymax/photoSurf.git"
+  },
+  "author": "qeymax",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qeymax/photoSurf/issues"
+  },
+  "homepage": "https://github.com/qeymax/photoSurf#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "image-type": "^2.1.0",
+    "mongoose": "^4.5.10",
+    "multer": "^1.2.0",
+    "node-forge": "^0.6.42",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
+  }
+}

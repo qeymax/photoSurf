@@ -1,0 +1,55 @@
+body{
+    background-color: #2A2D34;
+}
+#photos{
+    min-height: 800px;
+}
+.grid-sizer,
+.grid-item { width: 345px;
+    margin: 15px;
+ }
+.head{
+    background-color: #283044;
+    width:100% !important;
+    height: 350px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.8);
+}
+.progress{
+    height: 2px;
+    width: 100%;
+    background-color: #F2711C;
+    margin-bottom:0px !important;
+}
+.menu{
+    margin-top:0px !important;
+}
+
+h1{
+    font-size: 50px !important;
+    color : white !important;
+}
+.sub{
+    color : white !important;
+}
+
+
+footer{
+     background-color: #283044;
+     width:100% !important;
+     height: 60px;
+     box-shadow: 0px -10px 10px 0px rgba(0,0,0,0.8);
+     padding: 20px;
+     margin-top : 30px;
+ }
+ footer div a {
+     color: white !important;
+ }
+ footer div a:hover{
+     color: #F2711C !important;
+ }
+.ten.wide.column .row a {
+     color: white !important;
+ }
+ .ten.wide.column .row a:hover {
+     color: #F2711C !important;
+ }

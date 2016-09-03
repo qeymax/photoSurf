@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PhotoSurf</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/myCard.css" rel="stylesheet">
+        
+    </head>
+    <body>
+        <div class="progress"></div>
+        <div class="ui secondary huge menu">
+                <a href="/" class="item" style="color:white;">
+                    Home
+                </a>
+                <div class="right menu">
+                    <div class="ui item" >
+                        <div class="ui button basic orange uploadButton"  href="">UPLOAD</div>
+                    </div>
+                   <% if(currentUser){ %>
+                    <a href="/logout" class="ui item" style="color:white;">
+                        Sign-Out
+                    </a>
+                <% } else {%>
+                    <a href="/auth/facebook" class="ui item" style="color:white;">
+                        <i class="inverted facebook large icon"></i>
+                        Sign-In
+                    </a>
+                <% } %>
+                </div>
+        </div>
+
+        <div class="ui basic modal">
+            <i class="close icon"></i>
+        <% if(currentUser){ %>
+            <div class="header">
+                Upload a Photo
+            </div>
+            <p>file must be and image & with a max size of 2MB</p>
+            <input id="uploadFile" type="file" name="file" style="color:white !important;">
+            <br>
+            <br>
+            <div class="ui input">
+                <input id="name" type="text"  placeholder="Name" name="name">
+            </div>
+            <select id="category" class="ui selection dropdown" name="category">
+                <option value="animals">Animals</option>
+                <option value="art">Art</option>
+                <option value="backgrounds">Backgrounds</option>
+                <option value="buildings">Buildings</option>
+                <option value="business">Business</option>
+                <option value="fashion">Fashion</option>
+                <option value="food">Food</option>
+                <option value="industry">Industry</option>
+                <option value="music">Music</option>
+                <option value="nature">Nature</option>
+                <option value="people">People</option>
+                <option value="monuments">Monuments</option>
+                <option value="sports">Sports</option>
+                <option value="technology">Technology</option>
+                <option value="viechles">Viechles</option>
+                <option value="other">Other</option>
+            </select>    
+            <div class="actions">
+                <div id="upload" class="ui inverted button uploadButton">UPLOAD</div>
+            </div>
+        <% } else {%>
+            <div class="header">
+                You need to be logged in to do that.
+            </div>
+        <% } %>
+        </div>
+        
+        
+        <div class="ui container">
+
+            <div class="ui text container ">
+                <form class="ui centered form" action="/search" method="GET">
+                    <div class="ui action input fluid">
+                        <input id="searchbox" name="search" type="text" placeholder="Search...">
+                        <select id="searchcategory" name="searchcategory" class="ui selection dropdown">
+                            <option value="category">Category</option>
+                            <option value="animals">Animals</option>
+                            <option value="art">Art</option>
+                            <option value="backgrounds">Backgrounds</option>
+                            <option value="buildings">Buildings</option>
+                            <option value="business">Business</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="food">Food</option>
+                            <option value="industry">Industry</option>
+                            <option value="music">Music</option>
+                            <option value="nature">Nature</option>
+                            <option value="people">People</option>
+                            <option value="monuments">Monuments</option>
+                            <option value="sports">Sports</option>
+                            <option value="technology">Technology</option>
+                            <option value="viechles">Viechles</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <button type="submit" class="ui button orange">Search</button>
+                    </div>
+                </form>
+            </div>
+
+            <br>
+            <div class="messagePlace">
+
+            </div>
+            <br>
+            
+            <div id="photos" class="grid">
+                <div class="grid-sizer"></div>
+                <% for(var i =0; i< photos.length; i++){ %>
+                    <div class="grid-item">
+                        <div class="myCard">
+                            <div class="image">
+                                <div class="dimmer">
+                                    <div class="dimmerContent">
+                                    <% if(currentUser){ %>
+                                    <% if(photos[i].likes.indexOf(currentUser._id) >= 0){ %>
+                                        <i id="<%= photos[i]._id%>" class="heart link large icon orange"></i>
+                                    <% } else { %>
+                                    <i id="<%= photos[i]._id%>" class="heart link large icon"></i>
+                                    <% } %>
+                                    <% } %>
+                                        <a href="/bucket/<%= photos[i].link %>" class="ui basic inverted large orange button">Open Image</a>
+                                    </div>
+                                </div>
+                                <img src="../bucket/<%= photos[i].link %>">
+                            </div>
+                            <div class="content">
+                                <div class="name">
+                                    <%= photos[i].name %>
+                                </div>
+                                <span id="<%= photos[i]._id%>" class="likes"><%= photos[i].likes.length %></span>
+                                <br>
+                                <em><span style="color:white;margin-left:3px;">by</span> &nbsp; <a class="user" href="/user/<%= photos[i].user._id %>"> <%= photos[i].user.name %> </a></em>
+                                <div class="ui divider"></div>
+                                <div class="tag">
+                                    <a href="/search?search=&searchcategory=<%= photos[i].category %>" style="color:white !important;">
+                                        <i class="inverted filter icon"></i>
+                                        <%= photos[i].category %>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+    
+        </div>
+        <div class="ui button inverted fluid more">
+            Load More
+        </div>
+    </div>
+        
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+        <script src="../js/script.js"></script>
+    </body>
+
+    <footer>
+        <div class="ui right floated horizontal list">
+            <a class="item" href="#">Terms</a>
+            <a class="item" href="#">Privacy</a>
+            <a class="item" href="#">Contact</a>
+        </div>
+        <div class="ui horizontal list">
+            <a class="item" href="#">About Us</a>
+        </div>
+    </footer>
+
+</html>

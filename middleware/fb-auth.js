@@ -5,7 +5,7 @@ var User = require("../models/user");
 var fbStrategy = new facebookStrategy({
     clientID: process.env.APPID || "",
     clientSecret: process.env.APPSECRET || "",
-    callbackURL:  "http:s//photosurf.herokuapp.com/auth/facebook/callback",
+    callbackURL:  "https://photosurf.herokuapp.com/auth/facebook/callback",
     profileFields: ["id", "displayName", 'picture.width(999)' , "link"]
 }, function (accessToken, refreshToken, profile, done) {
     User.findOne({ "profileID": profile.id }, function (err, user) {

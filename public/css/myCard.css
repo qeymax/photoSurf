@@ -1,0 +1,55 @@
+.myCard{    padding: 10px;
+background-color: #2A2D34;
+z-index:-1;
+box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.8);
+}
+.myCard .image{
+     position: relative;
+}
+.myCard .image img{
+    width: 100%;    height: auto;
+}
+.myCard .image .dimmer {
+ position: absolute;
+   top: 0; 
+   left: 0; 
+   bottom: 0; 
+   right: 0;  
+   background: #2A2D34;  
+   color: #fff;  
+   visibility: hidden;  
+   opacity: 0;  
+   transition: opacity .5s;
+}
+.myCard .image:hover .dimmer {
+      visibility: visible;  
+      opacity: .5;
+      }
+.dimmer .dimmerContent .button{    
+    height: 40.13px;    
+    width: 142.7px;    
+    margin: auto;    
+    position: absolute;    
+    top: 0; left: 0; bottom: 0; right: 0;
+    }
+.dimmer .dimmerContent  i{    
+    bottom:10px;    
+    right:2px;    
+    position: absolute;} 
+.myCard .content .name {    
+     display:inline;     
+     font-size: 20px;     
+     color: white;     
+     margin: 3px; }
+ .myCard .content .likes {
+          font-size: 16px;     
+          color: white;     
+          margin: 3px;     
+          float: right; }  
+.myCard .content .tag {     
+    font-size: 14px;     
+    color: white;     
+    margin: 3px; } 
+.myCard .content .user{     
+    color: #F2711C;
+ }

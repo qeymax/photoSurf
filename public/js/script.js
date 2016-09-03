@@ -55,13 +55,13 @@ $(function () {
   
   function addPhoto(photo) {
     var card = '<div class="grid-item"><div class="myCard"><div class="image"><div class="dimmer"><div class="dimmerContent">'
-    card += '<a href="" style="color:white !important;" ><i class="heart large icon"></i></a>';
+    card += '<i id="'+ photo._id +'" class="heart link large icon orange"></i>';
     card += '<a href="/bucket/' + photo.link + '" class="ui basic inverted large orange button">Open Image</a>';
     card += '</div></div>';
     card += '<img src="../bucket/' + photo.link + '">';
     card += '</div><div class="content">';
     card += '<div class="name">' + photo.name + '</div>';
-    card += '<span class="likes">' + photo.likes.length + '</span>';
+    card += '<span id="'+ photo._id +'" class="likes">' + photo.likes.length + '</span>';
     card += '<br><em><span style="color:white;margin-left:3px;">by</span> &nbsp; <a class="user" href="/user/'+ photo.user._id +'">'+ photo.user.name +'</a></em>';
     card += '<div class="ui divider"></div><div class="tag"><a href="" style="color:white !important;">';
     card += '<i class="inverted filter icon"></i>' + photo.category + '</a></div></div></div></div>';

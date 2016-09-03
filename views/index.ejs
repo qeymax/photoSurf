@@ -18,6 +18,9 @@
                     <div class="ui button basic orange uploadButton">UPLOAD</div> 
                 </div>
                 <% if(currentUser){ %>
+                <a class="ui item" href="/user/<%= currentUser._id %>">
+                        Profile
+                    </a>
                     <a href="/logout" class="ui item" style="color:white;">
                         Sign-Out
                     </a>

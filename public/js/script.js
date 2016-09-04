@@ -6,8 +6,12 @@ $(function () {
     itemSelector: '.grid-item',
     columnWidth: '.grid-sizer'
   });
-  $grid.masonry('reloadItems');
-  $grid.masonry('layout');
+  
+  setTimeout(function () {
+      $grid.masonry('reloadItems');
+      $grid.masonry('layout');
+    }, 2000);
+  
 
   //---
   if (($(".grid-item").length % 10) != 0) {

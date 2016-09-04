@@ -102,11 +102,11 @@ router.post("/like", middleware.isLoggedIn ,  function (req, res) {
             
             Photo.findById(req.body.id).populate("likes").exec(function (err, photo) {
                 var userIndex = photo.likes.indexOf(req.user);
-                photo.likes.splice(userIndex, 1);
-                photo.save();
                 User.findById(req.user._id).populate("likes").exec(function (err, user) {
                     var photoIndex = user.likes.indexOf(photo);
+                    photo.likes.splice(userIndex, 1);
                     user.likes.splice(photoIndex, 1);
+                    photo.save();
                     user.save();
                 });
             });

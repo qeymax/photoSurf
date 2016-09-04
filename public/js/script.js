@@ -53,6 +53,7 @@ $(function () {
     $('.message').transition('fade');
   }
   iconLike = function () {
+    console.log($(this).html());
     if ($(this).hasClass("orange")) {
       like($(this).attr('id'), "unlike");
       $(this).removeClass("orange");

@@ -19,7 +19,7 @@ router.post("/upload", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log("here");
             console.log(err);
-            res.send({ name: "error", error: err });
+            res.redirect("/");
         }
         if (req.file){
             if (req.body.name != "") {

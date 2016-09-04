@@ -9,7 +9,7 @@ var multer = require("multer");
 var upload = multer({
     storage: middleware.multer.storage,
     fileFilter: middleware.multer.fileFilter,
-    limits: { fileSize: middleware.multer.maxSize }
+
 });
 
 var upload = upload.single("file");
@@ -17,9 +17,8 @@ var upload = upload.single("file");
 router.post("/upload", middleware.isLoggedIn, function (req, res) {
     upload(req, res, function (err) {
         if (err) {
-            console.log("here");
             console.log(err);
-            res.redirect("/");
+            res.send({ name: "error" });
         }
         if (req.file){
             if (req.body.name != "") {

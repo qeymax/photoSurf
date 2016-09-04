@@ -51,11 +51,26 @@ $(function () {
   //Functions
   hideMessage = function(){
     $('.message').transition('fade');
-  } 
+  }
+  iconLike = function () {
+    if ($(this).hasClass("orange")) {
+      like($(this).attr('id'), "unlike");
+      $(this).removeClass("orange");
+      var likes = parseInt($("#" + $(this).attr('id') + ".likes").html());
+      likes--;
+      $("#" + $(this).attr('id') + ".likes").html(likes);
+    } else {
+      like($(this).attr('id'), "like");
+      $(this).addClass("orange");
+      var likes = parseInt($("#" + $(this).attr('id') + ".likes").html());
+      likes++;
+      $("#" + $(this).attr('id') + ".likes").html(likes);
+    }
+  }
   
   function addPhoto(photo) {
     var card = '<div class="grid-item"><div class="myCard"><div class="image"><div class="dimmer"><div class="dimmerContent">'
-    card += '<i id="'+ photo._id +'" class="heart link large icon"></i>';
+    card += '<i id="'+ photo._id +'" onclick="(iconLike())" class="heart link large icon"></i>';
     card += '<a href="/bucket/' + photo.link + '" class="ui basic inverted large orange button">Open Image</a>';
     card += '</div></div>';
     card += '<img src="../bucket/' + photo.link + '">';

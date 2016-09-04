@@ -48,9 +48,9 @@ app.use(function (req, res, next) {
 
 
 
-Photo.remove({}, function (err) {
-    console.log("removed");
-});    
+// Photo.remove({}, function (err) {
+//     console.log("removed");
+// });    
 
 
   

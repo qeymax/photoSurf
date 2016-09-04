@@ -7,6 +7,11 @@ $(function () {
     columnWidth: '.grid-sizer'
   });
 
+  //---
+  if (($(".grid-item").length % 10) != 0) {
+    $(".more").hide();
+  }
+
   //Events
   $( ".uploadButton" ).hover(
     function() {
@@ -132,7 +137,7 @@ $(function () {
           uploadFile.val("");
           var obj = JSON.parse(xhr.response);
           if (obj.name != "error") {
-            if (window.location.pathname == "/") {
+            if (window.location.pathname == "/" || (window.location.pathname.split("/")[1] == "user" && window.location.pathname.split("/")[3] != "likes")) {
               addPhoto(obj);
             } else {
               successMessage();
@@ -206,7 +211,10 @@ $(function () {
         var interval = setInterval(function () {
           $grid.masonry('reloadItems');
           $grid.masonry('layout');
-        } , 100);
+        }, 100);
+        if (($(".grid-item").length % 10) != 0) {
+          $(".more").hide();
+        }
       },
       progress: function (e) {
       },

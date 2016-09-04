@@ -29,7 +29,7 @@ router.get("/search", function (req, res) {
 });
 
 router.get("/user/:id", function (req, res) {
-    User.findById(req.params.id).populate("uploads").exec(function (err, user) {
+    User.findById(req.params.id).populate("uploads").sort("-date").exec(function (err, user) {
         var uploads = user.uploads;
         uploads.splice(10, uploads.length - 10);
         res.render("profile", { user: user  , photos : uploads }); 

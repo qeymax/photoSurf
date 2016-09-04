@@ -17,6 +17,7 @@ var upload = upload.single("file");
 router.post("/upload", middleware.isLoggedIn, function (req, res) {
     upload(req, res, function (err) {
         if (err) {
+            console.log("here");
             console.log(err);
             res.send({ name: "error", error: err });
         }

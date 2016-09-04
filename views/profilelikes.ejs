@@ -110,7 +110,7 @@
                                 <div class="dimmer">
                                     <div class="dimmerContent">
                                     <% if(currentUser){ %>
-                                    <% if(uploads[i].likes.indexOf(currentUser._id) >= 0){ %>
+                                    <% if(photos[i].likes.indexOf(currentUser._id) >= 0){ %>
                                         <i id="<%= photos[i]._id%>" class="heart link large icon orange"></i>
                                     <% } else { %>
                                     <i id="<%= photos[i]._id%>" class="heart link large icon"></i>

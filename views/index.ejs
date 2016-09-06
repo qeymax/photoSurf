@@ -73,7 +73,7 @@
             <div class="header">
                 Upload a Photo
             </div>
-            <p>file must be and image & with a max size of 2MB</p>
+            <p>file must be and image & with a max size of 5MB</p>
             <input id="uploadFile" type="file" name="file" style="color:white !important;">
             <br>
             <br>
@@ -111,6 +111,18 @@
         <div class="ui container">
             <div class="messagePlace">
                 <br>
+                <div class="ui error message" style="display:none;">
+                    <i onclick="hideMessage()" class="close icon"></i>
+                    <div class="header">There was some errors with your submission</div>
+                    <ul class="list">
+                        <li>File must be and image</li>
+                        <li>Maximum file size is 5MB</li>
+                    </ul>
+                </div>
+                <div class="ui success message" style="display:none;">
+                    <i onclick="hideMessage()" class="close icon"></i>
+                    <div class="header">Image Uploaded Successfuly</div>
+                </div>
             </div>
             
             <br>
@@ -134,10 +146,10 @@
                                     <i id="<%= photos[i]._id%>" class="heart link large icon"></i>
                                     <% } %>
                                     <% } %>
-                                        <a href="/bucket/<%= photos[i].link %>" class="ui basic inverted large orange button">Open Image</a>
+                                        <a href="<%= photos[i].link %>" class="ui basic inverted large orange button">Open Image</a>
                                     </div>
                                 </div>
-                                <img src="../bucket/<%= photos[i].link %>" onerror="this.src='../images/default-placeholder.png'">
+                                <img src="<%= photos[i].link %>" onerror="this.src='../images/default-placeholder.png'">
                             </div>
                             <div class="content">
                                 <div class="name">

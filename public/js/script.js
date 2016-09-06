@@ -2,15 +2,16 @@ $(function () {
   //Initializing
   $('.ui.basic.modal').modal();
   $('.ui.dropdown').dropdown();
+  $(".progress").fadeOut(200);
   var $grid = $('#photos').masonry({
     itemSelector: '.grid-item',
     columnWidth: '.grid-sizer'
   });
   
-  setTimeout(function () {
+  setInterval(function () {
       $grid.masonry('reloadItems');
       $grid.masonry('layout');
-    }, 2000);
+    }, 200);
   
 
   //---
@@ -61,15 +62,31 @@ $(function () {
 
   //Functions
   hideMessage = function(){
-    $('.message').transition('fade');
+    $('.message').hide();
+  }
+
+  dimmer = function (element) {
+    if ($(element).hasClass("orange")) {
+      like($(element).attr('id'), "unlike");
+      $(element).removeClass("orange");
+      var likes = parseInt($("#" + $(element).attr('id') + ".likes").html());
+      likes--;
+      $("#" + $(element).attr('id') + ".likes").html(likes);
+    } else {
+      like($(element).attr('id'), "like");
+      $(element).addClass("orange");
+      var likes = parseInt($("#" + $(element).attr('id') + ".likes").html());
+      likes++;
+      $("#" + $(element).attr('id') + ".likes").html(likes);
+    }
   }
   
   function addPhoto(photo) {
     var card = '<div class="grid-item"><div class="myCard"><div class="image"><div class="dimmer"><div class="dimmerContent">'
-    card += '<i id="'+ photo._id +'" class="heart link large icon"></i>';
-    card += '<a href="/bucket/' + photo.link + '" class="ui basic inverted large orange button">Open Image</a>';
+    card += '<i id="'+ photo._id +'" class="heart link large icon" onclick="dimmer(this)"></i>';
+    card += '<a href="' + photo.link + '" class="ui basic inverted large orange button">Open Image</a>';
     card += '</div></div>';
-    card += '<img src="../bucket/' + photo.link + '">';
+    card += '<img src="'+ photo.link + '">';
     card += '</div><div class="content">';
     card += '<div class="name">' + photo.name + '</div>';
     card += '<span id="'+ photo._id +'" class="likes">' + photo.likes.length + '</span>';
@@ -79,28 +96,6 @@ $(function () {
     var $item = $(card);
     $grid.prepend($item)
       .masonry('prepended', $item);
-    setTimeout(function () {
-      clearInterval(interval);
-    }, 10000);
-    var interval = setInterval(function () {
-      $grid.masonry('layout');
-    }, 100);
-    $(".dimmerContent i").on("click", function () {
-    if ($(this).hasClass("orange")) {
-      like($(this).attr('id'), "unlike");
-      $(this).removeClass("orange");
-      var likes = parseInt($("#" + $(this).attr('id') + ".likes").html());
-      likes--;
-      $("#" + $(this).attr('id') + ".likes").html(likes);
-    } else {
-      like($(this).attr('id'), "like");
-      $(this).addClass("orange");
-      var likes = parseInt($("#" + $(this).attr('id') + ".likes").html());
-      likes++;
-      $("#" + $(this).attr('id') + ".likes").html(likes);
-    }
-    
-  });
                               
   }
 
@@ -164,22 +159,11 @@ $(function () {
   }
 
   function errorMessage() {
-    var message = '<div class="ui error message"><i onclick="hideMessage()" class="close icon"></i><div class="header">';
-    message += 'There was some errors with your submission';
-    message += '</div><ul class="list">';
-    message += '<li>File must be and image</li>';
-    message += '<li>Maximum file size is 2MB</li>';
-    message += '</ul></div>';
-  
-    $(".messagePlace").append(message);  
+    $(".error.message").show();
   }
 
   function successMessage() {
-    var message = '<div class="ui success message"><i onclick="hideMessage()" class="close icon"></i><div class="header">';
-    message += 'Image Uploaded Successfuly';
-    message += '</div></div>';
-    
-    $(".messagePlace").append(message);
+    $(".success.message").show();
   
   }
   function selectPlace() {
@@ -211,13 +195,6 @@ $(function () {
       success: function (xhr) {
         var $items = xhr.response;
         $grid.append($items).masonry('appended', $items);
-        setTimeout(function () {
-          clearInterval(interval);
-        }, 20000);
-        var interval = setInterval(function () {
-          $grid.masonry('reloadItems');
-          $grid.masonry('layout');
-        }, 100);
         if (($(".grid-item").length % 10) != 0) {
           $(".more").hide();
         }

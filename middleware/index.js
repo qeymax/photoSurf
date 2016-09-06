@@ -28,7 +28,7 @@ middleware.multer.fileFilter = function(req, file, cb) {
     }    
 }
 
-middleware.multer.maxSize = 2097152;
+middleware.multer.maxSize = 5242880;
 
 
 

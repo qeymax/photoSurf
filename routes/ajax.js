@@ -5,11 +5,20 @@ var User = require("../models/user");
 var Photo = require("../models/photo");
 var mongoose = require("mongoose");
 var multer = require("multer");
+var cloudinary = require("cloudinary");
+var fs = require("fs");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDNAME || '',
+    api_key: process.env.APIKEY || '',
+    api_secret: process.env.APISECRET || ''
+});
+
 
 var upload = multer({
     storage: middleware.multer.storage,
     fileFilter: middleware.multer.fileFilter,
-
+    limits: { fileSize: middleware.multer.maxSize }
 });
 
 var upload = upload.single("file");
@@ -19,26 +28,34 @@ router.post("/upload", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
             res.send({ name: "error" });
-        }
-        if (req.file){
-            if (req.body.name != "") {
-                var photo = new Photo({
-                name: req.body.name,
-                link: req.file.filename,
-                category: req.body.category,
-                date: new Date(),
-                user: req.user
-                });
-                photo.save();
-                User.findById(req.user._id).exec(function (err, user) {
-                    user.uploads.push(photo);
-                    user.save();
-                });
-                res.send(photo);
-            }
         } else {
-            res.send({ name: "error" });
+            if (req.file){
+                if (req.body.name != "") {
+                    cloudinary.uploader.upload(req.file.path, function(result) { 
+                        console.log(result);
+ 
+                            var photo = new Photo({
+                            name: req.body.name,
+                            link: result.secure_url,
+                            category: req.body.category,
+                            date: new Date(),
+                            user: req.user
+                            });
+                            photo.save();
+                            User.findById(req.user._id).exec(function (err, user) {
+                                user.uploads.push(photo);
+                                user.save();
+                            });
+                            fs.unlink(req.file.path);
+                            res.send(photo);
+
+                    });
+                }
+            } else {
+                res.send({ name: "error" });
+            }
         }
+        
     })
        
 });

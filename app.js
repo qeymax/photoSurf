@@ -52,10 +52,10 @@ app.use(function (req, res, next) {
 //     console.log("removed");
 // });    
 
-var http = require("http");
-setInterval(function() {
-    http.get("http://photosurf.herokuapp.com");
-}, 300000);
+// var http = require("http");
+// setInterval(function() {
+//     http.get("http://photosurf.herokuapp.com");
+// }, 300000);
 
   
 
